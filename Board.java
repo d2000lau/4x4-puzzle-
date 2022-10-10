@@ -8,6 +8,8 @@ public Board(int [][] tiles)
 	//condition for goal state
 	//get a copy of the current state of the board
 	//for a specific tile, return all the allowed moves
+	//get Manhattan distance
+	//counts number of misplaced tiles (for manhattan)
 	//
 	
 }
