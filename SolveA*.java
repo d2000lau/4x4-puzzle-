@@ -1,2 +1,4 @@
-halllo
-oihhsdojcvsdi
+public class AStar {
+  
+  
+}
