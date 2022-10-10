@@ -1,5 +1,13 @@
 public class Board{
 
-public Board(int [][] tiles)  
+public Board(int [][] tiles)
+	//get position of blank tile
+	//swapping two tiles
+	//direction that a piece can be moved, if any
+	//move function that returns the direction the tile was moved (uses swap)
+	//condition for goal state
+	//get a copy of the current state of the board
+	//for a specific tile, return all the allowed moves
+	//
 	
 }
