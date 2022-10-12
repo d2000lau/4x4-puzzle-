@@ -32,9 +32,13 @@ public Tile blank;
 	
 	//swaps position of two tiles
 	private swap (Tile t1, Tile t2){
-	int[][] temp = t1[xCoord][yCoord];
-  	t1[xCoord][yCoord] = t2[xCoord][yCoord];
-  	t2[xCoord][yCoord] = temp;
+		int temp1 = t1.xCoord;
+		int temp2 = t1.yCoord;
+		t1.xCoord = t2.xCoord;
+		t1.yCoord = t2.yCoord;
+		t2.xCoord = temp1;
+		t2.yCoord = temp2;
+  	
 	}
 	
 
