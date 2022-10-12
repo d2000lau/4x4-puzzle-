@@ -66,7 +66,10 @@ public List<Tile> allTiles;
 		t2.yCoord = temp2;
   	}
 	
-	
+	//Check is board is solved
+	private boolean solved(List<Tile> board){
+		
+	}
 	
 	//get position of blank tile
 	//swapping two tiles
