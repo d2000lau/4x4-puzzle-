@@ -1,8 +1,14 @@
 public class Board{
 
-heyyy
-	
-hiii
+	private class TilePos {
+		public int xCoord;
+		public int yCoord;
+		
+		public TilePos(int x, int y) {
+			this.xCoord = x;
+			this.yCoord = y;
+		}
+	}	
 	//get position of blank tile
 	//swapping two tiles
 	//direction that a piece can be moved, if any
