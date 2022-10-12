@@ -13,6 +13,23 @@ public final static int boardSize = 4;
 	private generatePuzzle(){
 		
 	}
+	
+	//COPIED!! STILL NEEDS TO BE CHANGED
+	public boolean isValidMove(TilePos p) {
+		if( ( p.x < 0) || (p.x >= DIMS) ) {
+			return false;
+		}
+		if( ( p.y < 0) || (p.y >= DIMS) ) {
+			return false;
+		}
+		int dx = blank.x - p.x;
+		int dy = blank.y - p.y;
+		if( (Math.abs(dx) + Math.abs(dy) != 1 ) || (dx*dy != 0) ) {
+			return false;
+		}
+		return true;
+	}
+	
 	//get position of blank tile
 	//swapping two tiles
 	//direction that a piece can be moved, if any
