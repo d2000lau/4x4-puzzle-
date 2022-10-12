@@ -19,6 +19,7 @@ public Tile blank;
 		
 	}
 	
+	//moves the tile and checks is the move is valid
 	private move(Tile T){
 		
 	}
