@@ -1,6 +1,6 @@
 public class Board{
 
-	private class TilePos {
+	private class TilePosition {
 		public int xCoord;
 		public int yCoord;
 		
