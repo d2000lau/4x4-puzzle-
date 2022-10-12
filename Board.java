@@ -4,7 +4,7 @@ public final static int boardSize = 4;
 		public int xCoord;
 		public int yCoord;
 		
-		public Tile (int x, int y, int value) {
+		public Tile (int value, int x, int y) {
 			this.xCoord = x;
 			this.yCoord = y;
 		}
