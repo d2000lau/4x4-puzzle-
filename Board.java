@@ -1,5 +1,8 @@
 public class Board{
+	
 public final static int boardSize = 4;
+public Tile blank;	
+	
 	private class Tile {
 		public int xCoord;
 		public int yCoord;
