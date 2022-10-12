@@ -17,6 +17,7 @@ public List<Tile> allTiles;
 	//Generate board and fill tiles randomly
 	private generatePuzzle(){
 		
+		//Add all tiles to public list
 		
 	}
 	
