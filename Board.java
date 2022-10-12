@@ -38,8 +38,7 @@ public Tile blank;
 		t1.yCoord = t2.yCoord;
 		t2.xCoord = temp1;
 		t2.yCoord = temp2;
-  	
-	}
+  	}
 	
 
 	
