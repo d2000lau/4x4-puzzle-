@@ -13,10 +13,15 @@ public Tile blank;
 		}
 	}	
 	
+	//Generate board and fill tiles randomly
 	private generatePuzzle(){
+		
 		
 	}
 	
+	private move(Tile T){
+		
+	}
 	
 	
 	
