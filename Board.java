@@ -7,10 +7,12 @@ public List<Tile> allTiles;
 	private class Tile {
 		public int xCoord;
 		public int yCoord;
+		public int value;
 		
-		public Tile (int value, int x, int y) {
+		public Tile (int number, int x, int y) {
 			this.xCoord = x;
 			this.yCoord = y;
+			this.value = number;
 		}
 	}	
 	
@@ -18,7 +20,29 @@ public List<Tile> allTiles;
 	private generatePuzzle(){
 		
 		//Add all tiles to public list
+		//Check is board is solvable, if not make new one
+		//solvable if Xblank=0,2 and inversion odd or xblank=1,3 and inversions even
+	}
+	
+	private boolean isSolvable(List<Tile> board){
+		int inversions = 0;
+		int temp = board.get(0).value;
 		
+		for(Tile T : board){
+			if(T.value > temp){
+				inversion++;
+			}
+			temp = T.value;
+		}
+		
+		if(blank.xCoord = 0 || blank.xCoord = 2 && inversions % 2 != 0){
+			return true;
+		}
+		else if (blank.xCoord = 1 || blank.xCoord = 3 && inversions % 2 == 0){
+			return true;
+		}
+		
+		return false;
 	}
 	
 	  //moves the tile and checks is the move is valid
@@ -42,7 +66,7 @@ public List<Tile> allTiles;
 		t2.yCoord = temp2;
   	}
 	
-
+	
 	
 	//get position of blank tile
 	//swapping two tiles
