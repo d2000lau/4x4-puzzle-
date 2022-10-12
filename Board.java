@@ -24,7 +24,8 @@ public Tile blank;
 		
 		int dx = Math.abs(blank.xCoord - T.xCoord);
 		int dy = Math.abs(blank.yCoord - T.yCoord);
-		if(dx + dy = 1 && T.xCoord < 0 && T.xCoord >= boardSize && T.yCoord < 0 && T.yCoord >= boardSize){
+		
+		if(dx + dy = 1 && T.xCoord >= 0 && T.xCoord < boardSize && T.yCoord >= 0 && T.yCoord < boardSize){
 			
 		}
 	}
