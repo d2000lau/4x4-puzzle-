@@ -45,7 +45,9 @@ public List<Tile> allTiles;
 		return false;
 	}
 	
-	  //moves the tile and checks is the move is valid
+	
+	//Part of A* algorithm
+	//moves the tile and checks is the move is valid
 	private move(Tile T){
 		
 		int dx = Math.abs(blank.xCoord - T.xCoord);
