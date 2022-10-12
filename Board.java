@@ -1,5 +1,5 @@
 public class Board{
-public final static int DIMS=4;
+public final static int boardSize = 4;
 	private class TilePosition {
 		public int xCoord;
 		public int yCoord;
