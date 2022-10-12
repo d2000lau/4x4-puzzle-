@@ -2,6 +2,7 @@ public class Board{
 	
 public final static int boardSize = 4;
 public Tile blank;	
+public List<Tile> allTiles;	
 	
 	private class Tile {
 		public int xCoord;
