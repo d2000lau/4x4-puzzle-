@@ -16,7 +16,7 @@ public final static int boardSize = 4;
 	
 	//COPIED!! STILL NEEDS TO BE CHANGED
 	public boolean isValidMove(TilePos p) {
-		if( ( p.x < 0) || (p.x >= DIMS) ) {
+		if( ( p.xCoord < 0) || (p.x >= DIMS) ) {
 			return false;
 		}
 		if( ( p.y < 0) || (p.y >= DIMS) ) {
