@@ -68,6 +68,21 @@ public List<Tile> allTiles;
 	
 	//Check is board is solved
 	private boolean solved(List<Tile> board){
+		//trying to assign tiles to their correct coordinates
+	List<Tile> correctTiles = new List<Tile>(15);
+		for(int i =0; i<4; i++){
+			for(int j =0; i<4; j++){
+				correctTiles.add()
+			}
+		}
+		
+		//if the tiles in board equal correctTiles then puzzle solved, otherwise not
+			
+		
+	}
+	
+	private getCorrectCoordinates(Tile t){
+		Map<Integer, String>  = new HashMap<Integer, String>();
 		
 	}
 	
