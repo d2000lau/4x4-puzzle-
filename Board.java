@@ -9,6 +9,10 @@ public class Board{
 			this.yCoord = y;
 		}
 	}	
+	
+	private generatePuzzle(){
+		
+	}
 	//get position of blank tile
 	//swapping two tiles
 	//direction that a piece can be moved, if any
