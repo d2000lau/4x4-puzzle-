@@ -1,10 +1,10 @@
 public class Board{
 public final static int boardSize = 4;
-	private class TilePosition {
+	private class Tile {
 		public int xCoord;
 		public int yCoord;
 		
-		public TilePos(int x, int y) {
+		public TilePos(int x, int y, int value) {
 			this.xCoord = x;
 			this.yCoord = y;
 		}
@@ -14,16 +14,19 @@ public final static int boardSize = 4;
 		
 	}
 	
+	
+	
+	
 	//COPIED!! STILL NEEDS TO BE CHANGED
 	public boolean isValidMove(TilePos p) {
-		if( ( p.xCoord < 0) || (p.x >= DIMS) ) {
+		if( ( p.xCoord < 0) || (p.xCoord >= boardSize) ) {
 			return false;
 		}
-		if( ( p.y < 0) || (p.y >= DIMS) ) {
+		if( ( p.yCoord < 0) || (p.yCoord >= boardSize) ) {
 			return false;
 		}
-		int dx = blank.x - p.x;
-		int dy = blank.y - p.y;
+		int dx = blank.xCoord - p.xCoord;
+		int dy = blank.yCoord - p.yCoord;
 		if( (Math.abs(dx) + Math.abs(dy) != 1 ) || (dx*dy != 0) ) {
 			return false;
 		}
