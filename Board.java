@@ -26,7 +26,7 @@ public Tile blank;
 		int dy = Math.abs(blank.yCoord - T.yCoord);
 		
 		if(dx + dy = 1 && T.xCoord >= 0 && T.xCoord < boardSize && T.yCoord >= 0 && T.yCoord < boardSize){
-			
+			swap(T, blank);
 		}
 	}
 	
