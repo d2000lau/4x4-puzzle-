@@ -1,3 +1,5 @@
+
+
 public class Board{
 	
 public final static int boardSize = 4;
@@ -17,7 +19,25 @@ public List<Tile> allTiles;
 	}	
 	
 	//Generate board and fill tiles randomly
-	private generatePuzzle(){
+	public void generatePuzzle(){
+        int[][] board = new int[4][4];
+        List<Integer> solution = new ArrayList<>();
+
+        for (int i = 0 ; i < 15; i++){
+            solution.add(i+1);
+        }
+        solution.add(0);
+        
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                int number = i * 4 + j;
+                int temp = (int) (Math.random() * (16 - number));
+                board[i][j] = (solution.get(temp));
+                solution.remove(temp);
+            }
+        }
+    }
+		
 		
 		//Add all tiles to public list
 		//Check is board is solvable, if not make new one
