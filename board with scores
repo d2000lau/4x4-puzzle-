@@ -1,0 +1,46 @@
+public class board {
+    private final int[][] state;
+    private final int gScore;
+    private final int fScore;
+    private int hScore;
+    private final int[] blank = new int[2];
+
+
+
+    public board(int[][] board, int gscore){
+        this.state = board;
+        this.gScore = gscore;
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (state[i][j] == 0){
+                    blank[0] = i;
+                    blank[1] = j;
+                }
+                int difference = Math.abs(state[i][j] - (4 * i + j + 1));
+                while (difference >=4){
+                    hScore++;
+                    difference  = difference - 4;
+                }
+                hScore = hScore + difference;
+            }
+        }
+        fScore = hScore + gscore;
+    }
+
+    public int getfScore() {
+        return fScore;
+    }
+
+    public int getgScore() {
+        return gScore;
+    }
+
+    public int[][] getBoard() {
+        return state;
+    }
+
+    public int[] getBlank(){
+        return blank;
+    }
+}
