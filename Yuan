@@ -1,0 +1,205 @@
+import java.util.*;
+
+public class Puzzle {
+    private class Tile{
+        public int x;
+        public int y;
+
+        public Tile( int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    private final int boardSize =4;
+    private int[][] position;
+    private Tile blank;
+
+    public Puzzle() {
+        int[][] position = new int[3][3];
+        int number=1;
+        for(int i=0; i<boardSize; i++) {
+            for(int j=0; j<boardSize; j++) {
+                position[i][j]= number;
+                number++;
+            }
+        }
+        blank = new Tile(3,3);
+        position[3][3]= 0;
+    }
+
+    public Puzzle(Puzzle toClone) {
+        this();  // chain to basic init
+        for(Tile tile: toClone.allTiles()) {
+            position[tile.x][tile.y] = toClone.tileValue(tile);
+        }
+        blank = toClone.getBlank();
+    }
+
+    public final static Puzzle correctBoard = new Puzzle();
+
+    public void moveToTile(Tile tile) {
+        position[blank.x][blank.y] = position[tile.x][tile.y];
+        position[tile.x][tile.y] = 0;
+        blank = tile;
+    }
+    
+    public Tile getBlank() {
+        return blank;
+    }
+
+    public boolean isValidMove(Tile move) {
+        if (move.x < 0 || move.x >= boardSize) {
+            return false;
+        }
+        if (move.y < 0 || move.y >= boardSize) {
+            return false;
+        }
+        return true;
+    }
+
+    public List<Tile> getValidMoves() {
+        List<Tile> validMoves = new ArrayList<>();
+        int count = 0;
+        for (int i = -1; i < 2; i=i+2) {
+            Tile move1 = new Tile(blank.x + i, blank.y);
+            Tile move2 = new Tile(blank.x, blank.y+i);
+            if (isValidMove(move1)) {
+                validMoves.add(move1);
+            }
+            if (isValidMove(move2)) {
+                validMoves.add(move2);
+            }
+        }
+        return validMoves;
+    }
+
+    public List<Tile> allTiles() {
+        List<Tile> currentTiles = new ArrayList<>();
+        for(int i=0; i<boardSize; i++) {
+            for(int j=0; j<boardSize; j++) {
+                currentTiles.add(new Tile(i,j));
+            }
+        }
+        return currentTiles;
+    }
+
+    public int tileValue(Tile tile) {
+        return position[tile.x][tile.y];
+    }
+
+    public int manhattenDistance() {
+        int sum =0;
+        for (Tile tile: allTiles()) {
+            int value = tileValue(tile);
+            if (value > 0) {
+                Tile correctTile = whereIs(value);
+                sum = sum + Math.abs(tile.x - correctTile.x) + Math.abs(tile.y - correctTile.y);
+            }
+        }
+        return sum;
+    }
+
+    public Tile whereIs(int x) {
+        for(Tile tile: allTiles()) {
+            if( tileValue(tile) == x ) {
+                return tile;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean equals(Object compared) {
+        if(!(compared instanceof Puzzle)) {
+            return false;
+        }
+        Puzzle comparedPuzzle = (Puzzle) compared;
+
+        for(Tile tile: allTiles()) {
+            if (this.tileValue(tile) != comparedPuzzle.tileValue(tile)) {
+                return false;
+            }
+        }
+        return true;
+        }
+
+    public int numberMisplacedTiles() {
+        int wrong=0;
+        for(int i=0; i<boardSize; i++) {
+            for(int j=0; j<boardSize; j++) {
+                if( (position[i][j] >0) && (position[i][j] != correctBoard.position[i][j] ) ){
+                    wrong++;
+                }
+            }
+        }
+        return wrong;
+    }
+
+    public boolean isSolved() {
+        return numberMisplacedTiles() == 0;
+    }
+
+
+
+    public List<Puzzle> aStarSolve() {
+        HashMap<Puzzle,Puzzle> predecessor = new HashMap<Puzzle,Puzzle>();
+        HashMap<Puzzle,Integer> depth = new HashMap<Puzzle,Integer>();
+        final HashMap<Puzzle,Integer> score = new HashMap<Puzzle,Integer>();
+        Comparator<Puzzle> comparator = new Comparator<Puzzle>() {
+            @Override
+            public int compare(Puzzle a,Puzzle b) {
+                return score.get(a) - score.get(b);
+            }
+        };
+        PriorityQueue<Puzzle> toVisit = new PriorityQueue<Puzzle>(10000,comparator);
+
+        predecessor.put(this, null);
+        depth.put(this,0);
+        score.put(this, this.manhattenDistance());
+        toVisit.add(this);
+        int cnt=0;
+        while( toVisit.size() > 0) {
+            Puzzle candidate = toVisit.remove();
+            cnt++;
+            if(candidate.isSolved() ) {
+                LinkedList<Puzzle> solution = new LinkedList<Puzzle>();
+                Puzzle backtrace=candidate;
+                while( backtrace != null ) {
+                    solution.addFirst(backtrace);
+                    backtrace = predecessor.get(backtrace);
+                }
+                return solution;
+            }
+            for(Puzzle fp: candidate.allAdjacentPuzzles()) {
+                if( !predecessor.containsKey(fp) ) {
+                    predecessor.put(fp,candidate);
+                    depth.put(fp, depth.get(candidate)+1);
+                    int estimate = fp.manhattenDistance();
+                    score.put(fp, depth.get(candidate)+1 + estimate);
+                    toVisit.add(fp);
+                }
+            }
+        }
+        return null;
+    }
+
+    public List<Puzzle> allAdjacentPuzzles() {
+        ArrayList<Puzzle> out = new ArrayList<Puzzle>();
+        for( Tile move: getValidMoves() ) {
+            out.add(moveClone(move));
+        }
+        return out;
+    }
+
+    public Puzzle moveClone(Tile tile) {
+        Puzzle out = new Puzzle(this);
+        out.moveToTile(tile);
+        return out;
+    }
+        
+        
+        
+    }
+
+    
