@@ -1,0 +1,87 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class Main {
+
+    public static void main (String[] args){
+        int[][] puzzle = generatePuzzle();
+        while (!isSolvable(puzzle, getBlank(puzzle))){
+            System.out.println(isSolvable(puzzle, getBlank(puzzle)));
+            puzzle = generatePuzzle();
+        }
+        System.out.println(isSolvable(puzzle, getBlank(puzzle)));
+        System.out.println(Arrays.deepToString(puzzle));
+        new Astar(puzzle);
+
+    }
+
+    //Generate board and fill tiles randomly
+    private static int[][] generatePuzzle(){
+        int[][] board = new int[4][4];
+        List<Integer> solution = new ArrayList<>();
+
+        solution.add(0);
+        solution.add(1);
+        solution.add(3);
+        solution.add(4);
+        solution.add(5);
+        solution.add(2);
+        solution.add(6);
+        solution.add(7);
+        solution.add(9);
+        solution.add(10);
+        solution.add(11);
+        solution.add(8);
+        solution.add(13);
+        solution.add(14);
+        solution.add(15);
+        solution.add(12);
+
+        int a = 0;
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                int number = i * 4 + j;
+                int temp = number;
+                board[i][j] = (solution.get(temp));
+
+            }
+        }
+
+        return board;
+    }
+
+    private static int getBlank(int[][] board){
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (board[i][j] == 0){
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+
+    //Add all tiles to public list
+    //Check is board is solvable, if not make new one
+    //solvable if XBlank=0,2 and inversion odd or xBlank=1,3 and inversions even
+
+    private static boolean isSolvable(int[][] board , int xBlank){
+        int inversions = 0;
+        int temp = board[0][0];
+
+        for(int i = 0; i <4; i++) {
+            for (int j = 0; j < 4; j++) {
+
+                if (board[i][j] > temp) {
+                    inversions++;
+                }
+                temp = board[i][j];
+            }
+        }
+        return (xBlank == 1 || xBlank == 3 && inversions % 2 == 0) || (xBlank == 0  || xBlank == 2 && inversions % 2!= 0);
+    }
+}
+
