@@ -1,0 +1,151 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class Astar {
+
+    private boolean solved;
+    private List<board> boards = new ArrayList<>();
+    private List<board> boardsDone = new ArrayList<>();
+    private List<String> moves = new ArrayList<>();
+    board solution;
+
+    public Astar(int[][] initial) {
+        solved = false;
+        boards.add(new board(initial, moves ));
+        algo();
+    }
+
+    public void algo(){
+        while (!solved){
+            swaps();
+        }
+        System.out.println(Arrays.deepToString(solution.getBoard()));
+        System.out.println(solution.getgScore());
+        System.out.println(solution.getMoves());
+    }
+
+    public board bestBoard(){
+        board best = boards.get(0);
+        for (int i = 0 ; i < boards.size(); i++){
+            board b = boards.get(i);
+            for (board c : boardsDone){
+                if (Arrays.deepToString(b.getBoard()) == Arrays.deepToString(c.getBoard())){
+                    if (i + 1 != boards.size()) {
+                        b = boards.get(i + 1);
+                        i++;
+                    }
+
+                }
+            if (best.getfScore() > b.getfScore()) {
+                best = b;
+            }
+            }
+        }
+        System.out.println(Arrays.deepToString(best.getBoard()));
+        return best;
+    }
+
+
+    
+    public void swaps() {
+        board best = bestBoard();
+        int[][] current = best.getBoard();
+        int[] blank = best.getBlank();
+
+        boardsDone.add(best);
+
+        if (best.getNeighbour().contains(3)) {
+            List<String> g1 = best.getMoves();
+            g1.add("up");
+
+            int[][] temp1 = new int[4][4];
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    if (blank[0] == i && blank[1] == j) {
+                        temp1[i][j] = current[i - 1][j];
+                        temp1[i - 1][j] = 0;
+                    } else {
+                        temp1[i][j] = current[i][j];
+                    }
+                }
+            }
+            boards.add(new board(temp1, g1));
+            if(new board(temp1, g1).solved()){
+                solved = true;
+                solution = new board(temp1, g1);
+            }
+        }
+        if (best.getNeighbour().contains(4)) {
+            List<String> g2 = best.getMoves();
+            g2.add("down");
+
+            int[][] temp2 = new int[4][4];
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    if (blank[0] == i && blank[1] == j) {
+                        temp2[i][j] = current[i + 1][j];
+                    } else if (blank[0] + 1 == i && blank[1] == j) {
+                        temp2[i][j] = 0;
+                    } else {
+                        temp2[i][j] = current[i][j];
+                    }
+                }
+            }
+            boards.add(new board(temp2, g2));
+            if(new board(temp2, g2).solved()){
+                solved = true;
+                solution = new board(temp2, g2);
+            }
+
+        }
+        if (best.getNeighbour().contains(2)) {
+            List<String> g3 = best.getMoves();
+            g3.add("right");
+
+            int[][] temp3 = new int[4][4];
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    if (blank[0] == i && blank[1] == j) {
+                        temp3[i][j] = current[i][j + 1];
+                    } else if (blank[0] == i && blank[1] + 1 == j) {
+                    temp3[i][j] = 0;
+                    } else {
+                        temp3[i][j] = current[i][j];
+                    }
+                }
+            }
+            boards.add(new board(temp3, g3));
+            if(new board(temp3, g3).solved()){
+                solved = true;
+                solution = new board(temp3, g3);
+            }
+        }
+        if (best.getNeighbour().contains(1)) {
+            List<String> g4 = best.getMoves();
+            g4.add("up");
+
+            int[][] temp4 = new int[4][4];
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    if (blank[0] == i && blank[1] == j) {
+                        temp4[i][j] = current[i][j - 1];
+                    } else if (blank[0]== i && blank[1] - 1 == j) {
+                        temp4[i][j] = 0;
+                    } else {
+                        temp4[i][j] = current[i][j];
+                    }
+                }
+            }
+            boards.add(new board(temp4, g4));
+            if(new board(temp4, g4).solved()){
+                solved = true;
+                solution = new board(temp4, g4);
+            }
+        }
+
+        boardsDone.add(best);
+        boards.remove(best);
+    }
+
+}
