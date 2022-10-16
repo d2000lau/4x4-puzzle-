@@ -38,6 +38,7 @@ public class AStar {
 	}
 
 	public static void main(String[] args) {
+	//initialize matrix, labels do not matter
 		int[][] matrix = new int[4][4];
 		matrix[0][0] = 1;
 		matrix[0][1] = 2;
@@ -55,7 +56,8 @@ public class AStar {
 		matrix[3][1] = 10;
 		matrix[3][2] = 14;
 		matrix[3][3] = 15;
-
+		
+		//shuffle the tiles in the board to generate a random board 
 		Random random = new Random();
 
 		for (int i = matrix.length - 1; i > 0; i--) {
