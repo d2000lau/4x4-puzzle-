@@ -5,7 +5,7 @@ public class Dijkstra {
 	private Search current;
 
 	/**
-	 * solves the board using A* algorithm
+	 * solves the board using Dijkstra's algorithm: Similar to A* but without manhattan distance heuristic
 	 * 
 	 * @author Dennis Lau, Mumbi Gachara, Gerwin van der Ende, Amber Dassen
 	 * @param start starting board matrix
